@@ -1,3 +1,4 @@
+import javax.crypto.spec.PSource;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,15 +17,22 @@ public class Main {
             list.push_front(rand.nextInt(100));
         }
         //list.push_back(123);
-        list.print();
-        System.out.print("Введите значение добавляемого элемента: ");
+        //list.print();
+        /*System.out.print("Введите значение добавляемого элемента: ");
         int value = kb.nextInt();
         System.out.print("Введите индекс добавляемого элемента: ");
         int index = kb.nextInt();
         list.insert(value, index);
         //list.pop_front();
         //list.pop_back();
+        list.print();*/
+        long start_time = System.nanoTime();
+        ForwardList list2 = new ForwardList(list);
+        long end_time = System.nanoTime();
+        System.out.println("Список скопировался за %f секунд.".formatted((double)(end_time - start_time)*1e-9));
+        /*list2.print();
+        list.pop_back();
         list.print();
-
+        list2.print();*/
     }
 }
