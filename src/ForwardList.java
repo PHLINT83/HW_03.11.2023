@@ -1,7 +1,7 @@
 import javax.xml.crypto.Data;
 
-public class ForwardList {
-    Element Head;
+public class ForwardList<T> {
+    Element<T> Head;
     int size;
     public ForwardList()
     {
@@ -9,19 +9,19 @@ public class ForwardList {
         size = 0;
         System.out.println("LConstructor:\t" + Integer.toHexString(hashCode()));
     }
-ForwardList(ForwardList other)
+ForwardList(ForwardList<T> other)
 {
     System.out.println("LCopyConstructor:" + Integer.toHexString(hashCode()));
     //Shallow copy - Поверхностное копирование
     /*this.Head = other.Head;
     this.size = other.size;*/
-    for (Element Temp = other.Head; Temp != null; Temp = Temp.getNext())
+    for (Element<T> Temp = other.Head; Temp != null; Temp = Temp.getNext())
         this.push_front(Temp.getData());
     revers();
 }
 public void revers()
 {
-    ForwardList reverse = new ForwardList();
+    ForwardList<T> reverse = new ForwardList<T>();
     while (Head != null) {
         reverse.push_front(Head.Data);
         pop_front();
@@ -29,7 +29,7 @@ public void revers()
     this.Head = reverse.Head;
     reverse.Head = null;
 }
-    public void push_front(int Data)
+    public void push_front(T Data)
     {
         /*Element New = new Element(Data);
         New.setNext(Head);
@@ -37,7 +37,7 @@ public void revers()
         Head = new Element(Data, Head);
         size++;
     }
-    public void push_back(int Data)
+    public void push_back(T Data)
     {
         if(Head == null)
         {
@@ -45,14 +45,14 @@ public void revers()
             return;
         }
         //1) Доходим до конца списка:
-        Element Temp = Head;
+        Element<T> Temp = Head;
         while(Temp.getNext() != null)Temp = Temp.getNext();
         //2) Добавляем элемент в конец списка:
         Temp.setNext(new Element(Data));
         size++;
     }
 
-    void insert(int Data, int Index)
+    void insert(T Data, int Index)
     {
 
         if(Index == 0)
@@ -61,7 +61,7 @@ public void revers()
             return;
         }
         if (Index > size)return;
-        Element Temp = Head;
+        Element<T> Temp = Head;
         for(int i = 0; i < Index -1; i++)Temp = Temp.getNext();
         /*Element New = new Element(Data);
         New.setNext(Temp.getNext());
@@ -77,7 +77,7 @@ public void pop_front()
 }
 public void pop_back()
 {
-    Element Temp = Head;
+    Element<T> Temp = Head;
     while (Temp.getNext().getNext() != null)Temp=Temp.getNext();
     Temp.setNext(null);
     size--;
@@ -86,7 +86,7 @@ public void pop_back()
 
     public void print()
     {
-        Element Temp = Head;    //Temp - это итератор.
+        Element<T> Temp = Head;    //Temp - это итератор.
         //Итератор - это указатель, при помощи которого можно получить доступ к элементам структуры данных
         while (Temp != null)
         {
